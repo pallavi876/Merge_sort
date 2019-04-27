@@ -1,0 +1,63 @@
+#include<stdio.h>
+
+void dnc(int,int);
+void Merge(int,int);
+int a[10];
+void main()
+{
+    int n,i;
+    printf("\nEnter number of elements:");
+    scanf("%d",&n);
+    printf("\nEnter elements to sort:");
+    for(i=0;i<n;i++)
+        scanf("%d",&a[i]);
+    dnc(0,n-1);
+    printf("\nSorted array is:");
+    for(i=0;i<n;i++)
+    {
+        printf("\n%d\n",a[i]);
+    }
+}
+
+void dnc(int s,int e)
+{
+    int mid;
+    if(s<e)
+    {
+        mid=(s+e)/2;
+        dnc(s,mid);
+        dnc(mid+1,e);
+        Merge(s,e);
+    }
+}
+
+void Merge(int s,int e)
+{
+    int mid;
+    mid=(s+e)/2;
+    int i=s,k=s,j=mid+1;
+    int temp[10];
+    while((i<=mid) && (j<=e))
+    {
+        if(a[i]<a[j])
+        {
+            temp[k++]=a[i++];
+        }
+        else
+            temp[k++]=a[j++];
+    }
+
+    if(i>mid)
+    {
+        while(j<=e)
+            temp[k++]=a[j++];
+    }
+    else
+    {
+        while(i<=mid)
+            temp[k++]=a[i++];
+    }
+
+    for(i=s;i<=e;i++)
+        a[i]=temp[i];
+}
